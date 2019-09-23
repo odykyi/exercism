@@ -15,7 +15,6 @@ module.exports = {
     '<rootDir>/test/helpers',
     '__mocks__'
   ],
-
   transform: {
     '^.+\\.[jt]sx?$': 'ts-jest',
   },
