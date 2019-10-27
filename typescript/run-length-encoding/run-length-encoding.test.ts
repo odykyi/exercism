@@ -67,11 +67,11 @@ describe("run-length decode a string", () => {
     expect(RunLengthEncoding.decode("2a3b4c")).toEqual(expected)
   })
 })
-//
-// describe("encode and then decode", () => {
-//   it("encode followed by decode gives original string", () => {
-//     expect(
-//       RunLengthEncoding.decode(RunLengthEncoding.encode("zzz ZZ  zZ"))
-//     ).toEqual("zzz ZZ  zZ")
-//   })
-// })
+
+describe("encode and then decode", () => {
+  it("encode followed by decode gives original string", () => {
+    expect(
+      RunLengthEncoding.decode(RunLengthEncoding.encode("zzz ZZ  zZ"))
+    ).toEqual("zzz ZZ  zZ")
+  })
+})

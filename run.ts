@@ -17,9 +17,8 @@ export default {
   },
   decode(code: string): string {
     let decode = '';
+    let num = 1;
     for (let i = 0; i < code.length; i++) {
-      let num = 1;
-
       if (code[i] >= '0' && code[i] <='9') {
         num = 0;
         while (code[i] >= '0' && code[i] <='9') {
@@ -30,6 +29,7 @@ export default {
       for (let j = 0; j < num; j++) {
         decode += code[i];
       }
+      num = 1;
     }
 
     return decode;
