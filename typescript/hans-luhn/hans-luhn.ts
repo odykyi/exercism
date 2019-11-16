@@ -1,8 +1,6 @@
 export default class HansLuhn {
-  getSum (multiply: number): number {
-    return multiply >= 10 ? multiply - 9 : multiply
-  }
-  isValid(input: string): boolean {
+  isValid(num: number): boolean {
+    const input: string = num.toString();
     if (input.length < 13 || input.length > 16) {
       return false;
     }
@@ -15,19 +13,19 @@ export default class HansLuhn {
       reversed += input[i];
     }
 
-    let evenSum = 0;
-    let oddSum = 0;
+    let summ = 0;
 
     for (let i = 0; i < reversed.length; i++) {
       if (i % 2 === 0) {
         // isEven
-        evenSum += this.getSum(+reversed[i]);
+        summ += +reversed[i];
       } else {
         // isOdd
-        oddSum += this.getSum(+reversed[i] * 2);
+        const multiply = +reversed[i] * 2;
+        summ += multiply >= 10 ? multiply - 9 : multiply;
       }
     }
 
-    return ((evenSum + oddSum) % 10) === 0;
+    return (summ % 10) === 0;
   }
 }
