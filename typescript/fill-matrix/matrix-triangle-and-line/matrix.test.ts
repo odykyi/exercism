@@ -3,7 +3,7 @@ import matrix from './matrix'
 const assert = require('assert');
 
 describe('test matrix', () => {
-  it('matrix generates correct arrays', () => {
+  it('matrix generates correct triangle arrays', () => {
     const result = matrix(10);
 
     const matrixToCompare = [
