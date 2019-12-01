@@ -1,6 +1,7 @@
+
+## Breadth First Searching Algorithm
+
 ## Task:
-
-
 # Острова
 
 https://www.e-olymp.com/ru/problems/3062
