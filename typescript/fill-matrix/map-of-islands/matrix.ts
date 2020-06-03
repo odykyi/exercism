@@ -89,6 +89,7 @@
 //   { i: 0, j: 0 }
 // ]
 function matrix(map: number[][]): number {
+  console.log('map', map);
   const islands: any = {};
   // const counterOfIslands = 0;
   let counterOfIslands = 0;
@@ -99,7 +100,6 @@ function matrix(map: number[][]): number {
     for (let j = 0; j < map[i].length; j++) {
       islands[counterOfIslands] = islands[counterOfIslands] || [];
 
-      // if (i === 2 && j === 2) throw new Error('END!!')
       if (map[i][j] === 1 && i === 0 && j === 0) {
         islands[counterOfIslands].unshift({ i, j });
         continue;
@@ -107,12 +107,13 @@ function matrix(map: number[][]): number {
       if (map[i][j] !== 1) { continue }
       else { fullList.push({ i, j }); }
 
+      // if (i===2 && j ===1) break;
       if (!islands[counterOfIslands].length) {
         islands[counterOfIslands].unshift({ i, j });
       }
       const head = islands[counterOfIslands][Head];
-      console.log('  islands[counterOfIslands]', islands[counterOfIslands])
-      console.log('  head', head)
+      // console.log('  islands[counterOfIslands]', islands[counterOfIslands])
+      // console.log('  head', head)
 
       const iMinus = i - 1; const iPlus = i + 1; const noti = head.i !== i;
       const jMinus = i - 1; const jPlus = j + 1; const notj = head.j !== j;
@@ -130,12 +131,16 @@ function matrix(map: number[][]): number {
       };
 
       if (isDiffOk(head, i, j)) {
-        islands[counterOfIslands].unshift({ i, j });
+        if (head.i !== i && head.j !== j ) {
+          islands[counterOfIslands].unshift({ i, j });
+        }
       } else {
         continue
       }
 
       if (isHaveChildren) {
+        // if (i===1 && j ===1) console.log('2 push', i , j);
+
         // const isTop = top === 1;// && notiMinus && notj;
         // const isRight = right === 1;// && noti && notjPlus;
         // const isBottom = bottom === 1;// && notiPlus && notj;
@@ -144,25 +149,45 @@ function matrix(map: number[][]): number {
         const isRight = right === 1;// && noti && notjPlus;
         const isBottom = bottom === 1;// && notiPlus && notj;
         const isLeft = left === 1;// && noti && notjMinus;
-        const listOfNeighbours = [];
+        const listOfNeighbours: any = [];
         if (isTop && isDiffOk(head, i - 1, j)) {
-          listOfNeighbours.unshift({ i: i - 1, j });
-          // islands[counterOfIslands].unshift();
+          const prev = islands[counterOfIslands][Head + 1];
+          if (head.i !== i - 1 && head.j !== j ) {
+            if (i===0 && j ===1) console.log('2 top push', i , j);
+            if (i===1 && j ===1) console.log('2 top push', i , j);
+
+            listOfNeighbours.unshift({ i: i - 1, j });
+          }
         }
         if (isRight && isDiffOk(head, i, j + 1)) {
-          listOfNeighbours.unshift({ i, j: j + 1 });
-          // islands[counterOfIslands].unshift({ i, j: j + 1 });
+          const prev = islands[counterOfIslands][Head + 1];
+          if (head.i !== i && head.j !== j + 1 ) {
+            if (i===0 && j ===1) console.log('2 right push', i , j);
+            if (i===1 && j ===1) console.log('2 right push', i , j);
+
+            listOfNeighbours.unshift({ i, j: j + 1 });
+          }
         }
         if (isBottom && isDiffOk(head, i + 1, j)) {
-          listOfNeighbours.unshift({ i: i + 1, j });
-          // islands[counterOfIslands].unshift({ i: i + 1, j });
+          const prev = islands[counterOfIslands][Head + 1];
+          if (head.i !== i + 1 && head.j !== j ) {
+            if (i===0 && j ===1) console.log('2 bottom push', i , j);
+            if (i===1 && j ===1) console.log('2 bottom push', i , j);
+
+            listOfNeighbours.unshift({ i: i + 1, j });
+          }
         }
         if (isLeft && isDiffOk(head, i, j - 1)) {
-          listOfNeighbours.unshift({ i, j: j - 1 });
-          // islands[counterOfIslands].unshift({ i, j: j - 1 });
+          const prev = islands[counterOfIslands][Head + 1];
+          if (head.i !== i && head.j !== j - 1 ) {
+            if (i===0 && j ===1) console.log('2 left push', i , j);
+            if (i===1 && j ===1) console.log('2 left push', i , j);
+
+            listOfNeighbours.unshift({ i, j: j - 1 });
+          }
         }
-        if (i === 1 && j === 1) {
-          console.log('##############listOfNeighbours', listOfNeighbours)
+        if (i === 0 && j === 1) {
+          console.log('all##############listOfNeighbours', i, j, listOfNeighbours)
         }
 
         islands[counterOfIslands].unshift(...listOfNeighbours);
@@ -176,13 +201,13 @@ function matrix(map: number[][]): number {
           }
           // i = 0;
           // j = 0;
-          // console.log('NORRR !isTop && !isRight && !isBottom && !isLeft', !isTop && !isRight && !isBottom && !isLeft)
+          console.log('NORRR !isTop && !isRight && !isBottom && !isLeft', !isTop && !isRight && !isBottom && !isLeft)
         }
         // else {
         //   console.log('88Not found T R L B, this', i, j);
         // }
       } else {
-        // console.log('-isHaveChildren00Not found chid, this', i, j);
+        console.log('-isHaveChildren00Not found child, this', i, j);
       }
     }
   }
