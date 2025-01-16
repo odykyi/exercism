@@ -1,19 +1,22 @@
-export class ResistorColor {
-  private colors: string[];
-  private colorSet: string[] = ['black', 'brown' ,'red' , 'orange' , 'yellow' , 'green' , 'blue' , 'violet' , 'grey' , 'white'];
+const colors = ['black', 'brown', 'red', 'orange', 'yellow', 'green', 'blue', 'violet', 'grey', 'white'] as const;
+export type Color = typeof colors[number];
 
-  constructor(colors: string[]) {
-    if (colors.length < 2) {
+export class ResistorColor {
+  private _colors: Color[];
+
+  constructor(_colors: Color[]) {
+    if (_colors.length < 2) {
       throw new Error('At least two colors need to be present');
     }
-    this.colors = colors;
+    this._colors = _colors;
   }
 
-  getColorValue = (index: number) : string => {
-    return String(this.colorSet.indexOf(this.colors[index]));
+  getColor = (index: number): string => {
+    return String(colors.indexOf(this._colors[index]));
   };
 
   value = (): number => {
-    return +(this.getColorValue(0) + this.getColorValue(1))
+    const [first, second] = [this.getColor(0), this.getColor(1)];
+    return +(first + second)
   };
 }

@@ -1,8 +1,9 @@
-import { ResistorColor } from "./resistor-color-duo"
+import { ResistorColor, Color } from "./resistor-color-duo"
 
 describe("Resistor Colors", () => {
   it("Brown and black", () => {
-    const resistorColor = new ResistorColor(["brown", "black"])
+    const colors: Color[] = ['brown', 'black'];
+    const resistorColor = new ResistorColor(colors)
     expect(resistorColor.value()).toEqual(10)
   })
 
